@@ -4,13 +4,17 @@
     flex-direction:column;
     width: 220px;
     align-items: center;
-    gap:2px;
-    
+    padding-bottom: 3px;
+    padding-top: 3px;
+    gap: 3px;
 }
 
 .display {
-    width: 200px;
-    height: 50px;
+    width: 210px;
+    height: 40px;
+    background-color: rgb(164, 164, 164);
+    font-size: xx-large;
+    text-align: right;
 }
 
 button {
