@@ -42,10 +42,19 @@ const updateDisplay = function(displayValue) {
 const buttons = document.querySelectorAll('button');
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
-      updateDisplay(button.id);
+      evaluateInput(button.id);
     });
   });
 
+  const evaluateInput = function(input) {
+      inputAsNumber = parseInt(input);
+      if(Number.isNaN(inputAsNumber)) {
+          alert("operator");
+      } else {
+          updateDisplay(inputAsNumber);
+      };
+  };
 
-updateDisplay(32);
+
+updateDisplay(0);
 
