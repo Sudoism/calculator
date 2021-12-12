@@ -26,3 +26,26 @@ const operate = function(operator, a ,b) {
             return divide(a, b);
     };
 }
+
+
+
+//Value to show on the calculator display
+const displayValue = 0;
+
+//updates what to show on the calculator display 
+const updateDisplay = function(displayValue) {
+    const display = document.querySelector(".display");
+    display.textContent = displayValue;
+};
+
+//makes button react on click and report id
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      updateDisplay(button.id);
+    });
+  });
+
+
+updateDisplay(32);
+
