@@ -30,7 +30,9 @@ const operate = function(operator, a ,b) {
 
 
 //Value to show on the calculator display
-const displayValue = 0;
+let displayValue = '';
+let firstOperand = '';
+let secondOperand = '';
 
 //updates what to show on the calculator display 
 const updateDisplay = function(displayValue) {
@@ -49,12 +51,31 @@ buttons.forEach((button) => {
   const evaluateInput = function(input) {
       inputAsNumber = parseInt(input);
       if(Number.isNaN(inputAsNumber)) {
-          alert("operator");
+          switch (input) {
+                case 'C':
+                    displayValue= '0';
+                    updateDisplay(displayValue);
+                    break;
+                case '+':
+                    firstOperand = displayValue;
+                    updateDisplay(displayValue);
+                    break;
+              default:
+                  break;
+          }
       } else {
-          updateDisplay(inputAsNumber);
+          //enables C to work without creating an empty display or a trailing 0 
+          if(displayValue === '0') { 
+            displayValue = input;
+          } else {
+            displayValue += input;
+          }
+          updateDisplay(displayValue);
       };
   };
 
 
 updateDisplay(0);
+
+//next step? -> Take array as input for updatedisplay, use evaluate as array.push 
 
