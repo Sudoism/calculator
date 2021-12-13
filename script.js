@@ -63,6 +63,21 @@ buttons.forEach((button) => {
                     operator = "+";
                     displayValue = '0';
                     break;
+                case '-':
+                    firstOperand = displayValue;
+                    operator = "-";
+                    displayValue = '0';
+                    break;
+                case '/':
+                    firstOperand = displayValue;
+                    operator = "/";
+                    displayValue = '0';
+                    break;
+                case '*':
+                    firstOperand = displayValue;
+                    operator = "*";
+                    displayValue = '0';
+                    break;
                 case '=':
                     secondOperand = displayValue;
                     result = operate(operator, parseInt(firstOperand), parseInt(secondOperand))
