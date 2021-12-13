@@ -33,6 +33,8 @@ const operate = function(operator, a ,b) {
 let displayValue = '';
 let firstOperand = '';
 let secondOperand = '';
+let operator = '';
+let result = '';
 
 //updates what to show on the calculator display 
 const updateDisplay = function(displayValue) {
@@ -58,6 +60,13 @@ buttons.forEach((button) => {
                     break;
                 case '+':
                     firstOperand = displayValue;
+                    operator = "+";
+                    displayValue = '0';
+                    break;
+                case '=':
+                    secondOperand = displayValue;
+                    result = operate(operator, parseInt(firstOperand), parseInt(secondOperand))
+                    displayValue = result;
                     updateDisplay(displayValue);
                     break;
               default:
