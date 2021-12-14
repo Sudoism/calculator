@@ -27,8 +27,6 @@ const operate = function(operator, a ,b) {
     };
 }
 
-
-
 //Value to show on the calculator display
 let displayValue = '';
 let firstOperand = '';
@@ -53,28 +51,33 @@ buttons.forEach((button) => {
   const evaluateInput = function(input) {
       inputAsNumber = parseInt(input);
       if(Number.isNaN(inputAsNumber)) {
-          switch (input) {
-                case 'C':
-                    displayValue= '0';
-                    updateDisplay(displayValue);
-                    break;
-                case '+':
-                case '-':
-                case '/':
-                case '*':
-                    firstOperand = displayValue;
-                    operator = input;
-                    displayValue = '0';
-                    break;
-                case '=':
-                    secondOperand = displayValue;
-                    result = operate(operator, parseInt(firstOperand), parseInt(secondOperand))
-                    displayValue = result;
-                    updateDisplay(displayValue);
-                    break;
-              default:
-                  break;
+          //operator is = first
+          if(input === '='){
+            secondOperand = displayValue;
+            result = operate(operator, parseInt(firstOperand), parseInt(secondOperand))
+            displayValue = result;
+            updateDisplay(displayValue);
+            // bug, cant make it work to click "=" repeateadly 
+            //firstOperand = secondOperand;
+          } else if(input === 'C') {
+            displayValue= '0';
+            updateDisplay(displayValue);
+            operator ='';
+          } else if(operator === '') {
+            firstOperand = displayValue;
+            operator = input;
+            displayValue = '0';
+            // enables to get result when clicking an operator with two operands avaialable
+          } else {
+            secondOperand = displayValue;
+            result = operate(operator, parseInt(firstOperand), parseInt(secondOperand))
+            displayValue = result;
+            updateDisplay(displayValue);
+            firstOperand = displayValue;
+            operator = input;
+            displayValue = '0';
           }
+
       } else {
           //enables C to work without creating an empty display or a trailing 0 
           if(displayValue === '0') { 
