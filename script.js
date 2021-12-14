@@ -59,23 +59,11 @@ buttons.forEach((button) => {
                     updateDisplay(displayValue);
                     break;
                 case '+':
-                    firstOperand = displayValue;
-                    operator = "+";
-                    displayValue = '0';
-                    break;
                 case '-':
-                    firstOperand = displayValue;
-                    operator = "-";
-                    displayValue = '0';
-                    break;
                 case '/':
-                    firstOperand = displayValue;
-                    operator = "/";
-                    displayValue = '0';
-                    break;
                 case '*':
                     firstOperand = displayValue;
-                    operator = "*";
+                    operator = input;
                     displayValue = '0';
                     break;
                 case '=':
