@@ -34,10 +34,16 @@ let secondOperand = '';
 let operator = '';
 let result = '';
 
+// limits output on the calculator
+const limit = function(value){
+    var max_chars = 13;
+    return value.toString().substring(0, max_chars);
+}
+
 //updates what to show on the calculator display 
 const updateDisplay = function(displayValue) {
     const display = document.querySelector(".display");
-    display.textContent = displayValue;
+    display.textContent = limit(displayValue);
 };
 
 //makes button react on click and report id
@@ -57,12 +63,15 @@ buttons.forEach((button) => {
             result = operate(operator, parseInt(firstOperand), parseInt(secondOperand))
             displayValue = result;
             updateDisplay(displayValue);
-            // bug, cant make it work to click "=" repeateadly 
+            // bug, cant make it work to click "=" repeateadly, or it takes the first iterand as iterator, want the second to be iterator
             //firstOperand = secondOperand;
+            // maybe use memory variable? or if statement to read if screen is 0 or not
           } else if(input === 'C') {
             displayValue= '0';
             updateDisplay(displayValue);
             operator ='';
+            firstOperand ='';
+            secondOperand ='';
           } else if(operator === '') {
             firstOperand = displayValue;
             operator = input;
