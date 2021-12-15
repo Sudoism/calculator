@@ -1,9 +1,15 @@
+.main {
+    display: flex;
+    justify-content: center;
+}
+
 .calculator{
-    background-color: grey;
+    background-color: gray;
     display:flex;
     flex-direction:column;
     width: 220px;
     align-items: center;
+    justify-content: center;
     padding-bottom: 4px;
     padding-top: 4px;
     gap: 3px;

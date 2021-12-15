@@ -46,7 +46,7 @@ const updateDisplay = function(displayValue) {
     display.textContent = limit(displayValue);
 };
 
-//makes button react on click and report id
+//button reacts on click and report its id
 const buttons = document.querySelectorAll('button');
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
@@ -98,8 +98,5 @@ buttons.forEach((button) => {
       };
   };
 
-
 updateDisplay(0);
-
-//next step? -> Take array as input for updatedisplay, use evaluate as array.push 
 
