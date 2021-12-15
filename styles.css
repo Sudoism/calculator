@@ -11,15 +11,20 @@
     align-items: stretch;
     justify-content: center;
     gap: 2px;
-    padding:10px;
-    border-radius: 3%;
+    padding:2px;
+    border-radius: 1%;
 }
 
 .display {
-    background-color: rgb(164, 164, 164);
+    background-color: whitesmoke;
     font-size: xxx-large;
     text-align: right;
     height: 50px;
+}
+
+button {
+    background-color: white;
+    border:white;
 }
 
 .buttonRow{
