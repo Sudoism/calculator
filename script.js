@@ -27,41 +27,20 @@ const operate = function(operator, a ,b) {
     };
 }
 
-//Value to show on the calculator display
-let displayValue = '';
-let firstOperand = '';
-let secondOperand = '';
-let operator = '';
-let result = '';
-
 // limits character output on the calculator to avoid overflowing of display
 const limit = function(value){
     var max_chars = 10;
     return value.toString().substring(0, max_chars);
 }
 
-//updates what to show on the calculator display 
-const updateDisplay = function(displayValue) {
-    const display = document.querySelector(".display");
-    displayValue = limit(displayValue)
-    display.textContent = displayValue;
-};
-
-//button reacts on click and report its id
-const buttons = document.querySelectorAll('button');
-buttons.forEach((button) => {
-    button.addEventListener('click', () => {
-      evaluateInput(button.id);
-    });
-  });
-
 const equals = function(){
+    if(operator === '') {
+        return; //if no operator selected, there is nothing to calculate/equal
+    }
     secondOperand = displayValue;
-    result = operate(operator, parseInt(firstOperand), parseInt(secondOperand));
-    displayValue = result;
+    displayValue = operate(operator, parseInt(firstOperand), parseInt(secondOperand));
     updateDisplay(displayValue);
 }
-
 
 const clear = function(){
     displayValue= '0';
@@ -72,6 +51,10 @@ const clear = function(){
 }
 
 const operatorSelection = function(input) {
+    //if operator already selected, evaluate expression
+    if(operator != ''){
+        equals();
+    }
     firstOperand = displayValue;
     operator = input;
     displayValue = '0';
@@ -83,6 +66,7 @@ const numberSelection = function(input) {
     } else {
         displayValue += input;
     }
+    updateDisplay(displayValue);
 }
 
 const deleteNumber  = function() {
@@ -91,30 +75,49 @@ const deleteNumber  = function() {
     } else {
         displayValue = displayValue.substring(0,(displayValue.length-1));
     }
+    updateDisplay(displayValue)
 }
 
-const evaluateInput = function(input) {
-    inputAsNumber = parseInt(input);
-    if(Number.isNaN(inputAsNumber)) {
-        if(input === '='){
-            equals();
-        } else if(input === 'C') {
-            clear();
-        } else if(input === 'delete') {
-            deleteNumber();
-            updateDisplay(displayValue);
-        } else if(operator === '') { 
-            operatorSelection(input);
-        } else { // operator already selected, and pressed again instead of "="
-            equals();
-            operatorSelection();
-        }
-    } else {
-        //enables C to work without creating an empty display or a trailing 0 
-        numberSelection(input);
-        updateDisplay(displayValue);
-    };
+//updates what to show on the calculator display 
+const updateDisplay = function(displayValue) {
+    const display = document.querySelector(".display");
+    displayValue = limit(displayValue)
+    display.textContent = displayValue;
 };
+
+//number buttons interact with display
+const numberButtons = document.querySelectorAll('.number');
+numberButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      numberSelection(button.id);
+    });
+});
+
+//operators
+const operatorButtons = document.querySelectorAll('.operator');
+operatorButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+        operatorSelection(button.id);
+    });
+});
+
+document.getElementById("equal").addEventListener("click", () =>{
+    equals();
+})
+
+document.getElementById("clear").addEventListener("click", () =>{
+    clear();
+})
+
+document.getElementById("delete").addEventListener("click", () =>{
+    deleteNumber();
+})
+
+//Value to show on the calculator display
+let displayValue = '';
+let firstOperand = '';
+let secondOperand = '';
+let operator = '';
 
 updateDisplay(0);
 
