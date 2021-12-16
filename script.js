@@ -29,7 +29,6 @@ const operate = function(operator, a ,b) {
 
 // limits character output on the calculator to avoid overflowing of display
 const limit = function(value){
-    var max_chars = 10;
     return value.toString().substring(0, max_chars);
 }
 
@@ -61,6 +60,9 @@ const operatorSelection = function(input) {
 }
 
 const numberSelection = function(input) {
+    if(displayValue.length >= max_chars){
+        return;
+    }
     if(displayValue === '0') { 
         displayValue = input;
     } else {
@@ -126,11 +128,37 @@ document.getElementById("decimal").addEventListener("click", () =>{
     decimal();
 });
 
+//keyboard support 
+document.addEventListener('keydown', function(event) {
+    //alert(event.key)
+    if(event.key === "0" || event.key === "1" || event.key === "2" || event.key === "3" || event.key === "4" || event.key === "5" || event.key === "6" || event.key === "7" || event.key === "8" || event.key === "9") {
+        numberSelection(event.key);
+    };
+
+    if(event.key === "Backspace") {
+        deleteNumber();
+    }
+
+    if(event.key ==='/' || event.key ==='*' || event.key ==='+' || event.key ==='-') {
+        operatorSelection(event.key);
+    }
+
+    if(event.key === '=' || event.key ===  "Enter"){
+        equals();
+    }
+
+    if(event.key === '.'){
+        decimal();
+    }
+});
+
 //Value to show on the calculator display
 let displayValue = '';
 let firstOperand = '';
 let secondOperand = '';
 let operator = '';
+const max_chars = 10;
+
 
 updateDisplay(0);
 
