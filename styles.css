@@ -45,4 +45,9 @@ button {
 .buttonRowTop button {
     width: 149px;
     height: 75px;
+    background-color:wheat;
+}
+
+.operator{
+    background-color:silver;
 }
