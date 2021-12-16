@@ -11,6 +11,7 @@
     gap: 2px;
     padding:2px;
     border-radius: 1%;
+    font-family:  "Lucida Console", monospace;
 }
 
 .display {
@@ -22,6 +23,8 @@
 button {
     background-color: white;
     border:white;
+    font-family:  "Lucida Console", monospace;
+    font-size:large;
 }
 
 .buttonRow{
