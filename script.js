@@ -34,16 +34,17 @@ let secondOperand = '';
 let operator = '';
 let result = '';
 
-// limits output on the calculator
+// limits character output on the calculator to avoid overflowing of display
 const limit = function(value){
-    var max_chars = 13;
+    var max_chars = 10;
     return value.toString().substring(0, max_chars);
 }
 
 //updates what to show on the calculator display 
 const updateDisplay = function(displayValue) {
     const display = document.querySelector(".display");
-    display.textContent = limit(displayValue);
+    displayValue = limit(displayValue)
+    display.textContent = displayValue;
 };
 
 //button reacts on click and report its id
@@ -54,49 +55,66 @@ buttons.forEach((button) => {
     });
   });
 
-  const evaluateInput = function(input) {
-      inputAsNumber = parseInt(input);
-      if(Number.isNaN(inputAsNumber)) {
-          //operator is = first
-          if(input === '='){
-            secondOperand = displayValue;
-            result = operate(operator, parseInt(firstOperand), parseInt(secondOperand))
-            displayValue = result;
-            updateDisplay(displayValue);
-            // bug, cant make it work to click "=" repeateadly, or it takes the first iterand as iterator, want the second to be iterator
-            //firstOperand = secondOperand;
-            // maybe use memory variable? or if statement to read if screen is 0 or not
-          } else if(input === 'C') {
-            displayValue= '0';
-            updateDisplay(displayValue);
-            operator ='';
-            firstOperand ='';
-            secondOperand ='';
-          } else if(operator === '') {
-            firstOperand = displayValue;
-            operator = input;
-            displayValue = '0';
-            // enables to get result when clicking an operator with two operands avaialable
-          } else {
-            secondOperand = displayValue;
-            result = operate(operator, parseInt(firstOperand), parseInt(secondOperand))
-            displayValue = result;
-            updateDisplay(displayValue);
-            firstOperand = displayValue;
-            operator = input;
-            displayValue = '0';
-          }
+const equals = function(){
+    secondOperand = displayValue;
+    result = operate(operator, parseInt(firstOperand), parseInt(secondOperand));
+    displayValue = result;
+    updateDisplay(displayValue);
+}
 
-      } else {
-          //enables C to work without creating an empty display or a trailing 0 
-          if(displayValue === '0') { 
-            displayValue = input;
-          } else {
-            displayValue += input;
-          }
-          updateDisplay(displayValue);
-      };
-  };
+
+const clear = function(){
+    displayValue= '0';
+    updateDisplay(displayValue);
+    operator ='';
+    firstOperand ='';
+    secondOperand ='';
+}
+
+const operatorSelection = function(input) {
+    firstOperand = displayValue;
+    operator = input;
+    displayValue = '0';
+}
+
+const numberSelection = function(input) {
+    if(displayValue === '0') { 
+        displayValue = input;
+    } else {
+        displayValue += input;
+    }
+}
+
+const deleteNumber  = function() {
+    if(displayValue.length===1) { 
+        displayValue = "0";
+    } else {
+        displayValue = displayValue.substring(0,(displayValue.length-1));
+    }
+}
+
+const evaluateInput = function(input) {
+    inputAsNumber = parseInt(input);
+    if(Number.isNaN(inputAsNumber)) {
+        if(input === '='){
+            equals();
+        } else if(input === 'C') {
+            clear();
+        } else if(input === 'delete') {
+            deleteNumber();
+            updateDisplay(displayValue);
+        } else if(operator === '') { 
+            operatorSelection(input);
+        } else { // operator already selected, and pressed again instead of "="
+            equals();
+            operatorSelection();
+        }
+    } else {
+        //enables C to work without creating an empty display or a trailing 0 
+        numberSelection(input);
+        updateDisplay(displayValue);
+    };
+};
 
 updateDisplay(0);
 
