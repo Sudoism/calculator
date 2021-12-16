@@ -38,7 +38,7 @@ const equals = function(){
         return; //if no operator selected, there is nothing to calculate/equal
     }
     secondOperand = displayValue;
-    displayValue = operate(operator, parseInt(firstOperand), parseInt(secondOperand));
+    displayValue = operate(operator, parseFloat(firstOperand), parseFloat(secondOperand));
     updateDisplay(displayValue);
 }
 
@@ -78,6 +78,15 @@ const deleteNumber  = function() {
     updateDisplay(displayValue)
 }
 
+const decimal = function() {
+    if(displayValue.includes(".")){
+        return;
+    } else {
+        displayValue += '.';
+        updateDisplay(displayValue);
+    }
+}
+
 //updates what to show on the calculator display 
 const updateDisplay = function(displayValue) {
     const display = document.querySelector(".display");
@@ -103,15 +112,19 @@ operatorButtons.forEach((button) => {
 
 document.getElementById("equal").addEventListener("click", () =>{
     equals();
-})
+});
 
 document.getElementById("clear").addEventListener("click", () =>{
     clear();
-})
+});
 
 document.getElementById("delete").addEventListener("click", () =>{
     deleteNumber();
-})
+});
+
+document.getElementById("decimal").addEventListener("click", () =>{
+    decimal();
+});
 
 //Value to show on the calculator display
 let displayValue = '';
